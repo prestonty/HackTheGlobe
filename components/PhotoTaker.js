@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useRef } from "react";
 import {
     View,
     Text,
@@ -7,18 +7,12 @@ import {
     StyleSheet,
     TouchableOpacity,
     SafeAreaView,
-    Alert,
 } from "react-native";
 import { Camera } from "expo-camera";
-import * as MediaLibrary from "expo-media-library";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
-import * as FileSystem from "expo-file-system";
 
 import { Dimensions } from "react-native";
 const { width, height } = Dimensions.get("window");
-
-// import { lineSpinner } from "ldrs";
-// lineSpinner.register();
 
 export default function Cam(props) {
     const [type, setType] = useState(Camera.Constants.Type.back);
@@ -62,37 +56,7 @@ export default function Cam(props) {
         }
     };
 
-    // SEND TO BACKEND -----------------------------------------------------------------------------------------------------
     let sendToAnalyzer = async () => {
-        try {
-            // Read the image as base64
-            const base64Image = await FileSystem.readAsStringAsync(photo.uri, {
-                encoding: FileSystem.EncodingType.Base64,
-            });
-            // console.log("Base64 Image:", base64Image);
-
-            // Now you can send the base64Image string to your server using fetch or another HTTP library
-            // For example:
-            fetch("http://127.0.0.1:5000/predict", {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                },
-                body: JSON.stringify({ image: base64Image }),
-            })
-                .then((response) => response.json())
-                .then((data) => {
-                    console.log("Success:", data);
-                })
-                .catch((error) => {
-                    console.error("Error:", error);
-                });
-
-            console.log("Response: " + response.json());
-        } catch (error) {
-            console.error("Error uploading image:", error);
-        }
-
         setPhoto(null); // deletes photo from memory
     };
 

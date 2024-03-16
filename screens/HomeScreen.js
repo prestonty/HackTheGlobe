@@ -3,7 +3,7 @@ import { StyleSheet, Text, View, Button } from "react-native";
 export default function HomeScreen({ navigation }) {
     return (
         <View>
-            <Text>Welcome To Community Kitchen</Text>
+            <Text>Welcome To Barter</Text>
 
             <Button
                 title="Scan Food"
